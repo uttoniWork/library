@@ -29,6 +29,10 @@ public class Client {
         this.dateCreated = LocalDateTime.now();
     }
 
+    public long getClientId() {
+        return clientId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -39,5 +43,9 @@ public class Client {
 
     public String getPassword() {
         return password;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 }

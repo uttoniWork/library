@@ -1,4 +1,4 @@
-package project.library.dto;
+package project.library.dto.request;
 
 public class ClientRequest {
 

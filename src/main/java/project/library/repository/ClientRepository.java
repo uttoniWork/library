@@ -1,10 +1,13 @@
 package project.library.repository;
 
-import org.springframework.data.neo4j.repository.ReactiveNeo4jRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import project.library.model.Client;
 
-@Repository
-public interface ClientRepository extends ReactiveNeo4jRepository<Client, Long> {
+import java.util.Optional;
 
+@Repository
+public interface ClientRepository extends CrudRepository<Client, Long> {
+
+    Optional<Client> findByEmailAndPassword(String email, String password);
 }

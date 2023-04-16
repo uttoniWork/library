@@ -1,12 +1,14 @@
 package project.library.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import project.library.dto.ClientLoginRequest;
-import project.library.dto.ClientRequest;
+import project.library.dto.request.ClientLoginRequest;
+import project.library.dto.request.ClientRequest;
+import project.library.dto.response.ClientLoginResponse;
 import project.library.model.Client;
 import project.library.service.ClientService;
 
@@ -27,9 +29,10 @@ public class ClientController {
         return ResponseEntity.ok(savedClient);
     }
 
-    public ResponseEntity<Long> loginClient(@RequestBody ClientLoginRequest clientLoginRequest) {
-        Long clientId = clientService.loginClient(clientLoginRequest);
+    @GetMapping
+    public ResponseEntity<ClientLoginResponse> loginClient(@RequestBody ClientLoginRequest clientLoginRequest) {
+        ClientLoginResponse clientLoginResponse = clientService.loginClient(clientLoginRequest);
 
-        return clientId;
+        return ResponseEntity.ok(clientLoginResponse);
     }
 }
