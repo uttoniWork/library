@@ -24,13 +24,13 @@ public class ClientService {
 
     public ClientLoginResponse loginClient(ClientLoginRequest clientLoginRequest) {
 
-        final Client clientFound = checkClientExistsByEmailAndPassword(clientLoginRequest.getEmail(), clientLoginRequest.getPassword());
+        final Client clientFound = checkClientExists(clientLoginRequest.getEmail(), clientLoginRequest.getPassword());
 
         return new ClientLoginResponse(clientFound.getClientId(), clientFound.getUserName());
 
     }
 
-    private Client checkClientExistsByEmailAndPassword(String email, String password){
+    private Client checkClientExists(String email, String password){
 
         return clientRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new ClientNotExistException("Cliente não existe, corrija email e/ou senha!"));
