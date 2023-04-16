@@ -1,9 +1,11 @@
 package project.library.service;
 
-import org.example.dto.ClientLoginRequest;
-import org.example.dto.ClientRequest;
-import org.example.model.Client;
-import org.example.repository.ClientRepository;
+import project.library.dto.request.ClientLoginRequest;
+import project.library.dto.request.ClientRequest;
+import project.library.dto.response.ClientLoginResponse;
+import project.library.exception.ClientNotExistException;
+import project.library.model.Client;
+import project.library.repository.ClientRepository;
 
 public class ClientService {
 
@@ -14,15 +16,23 @@ public class ClientService {
     }
 
     public Client saveClient(ClientRequest clientRequest) {
+
         final Client client = new Client(clientRequest.getUserName(), clientRequest.getEmail(), clientRequest.getPassword());
 
         return clientRepository.save(client);
     }
 
-    public Long loginClient(ClientLoginRequest clientLoginRequest) {
-        final Long clientId = clientRepositoryfindClientClientIdByClientEmailAndPassword(clientRepository
+    public ClientLoginResponse loginClient(ClientLoginRequest clientLoginRequest) {
 
-                S
-        );
+        final Client clientFound = checkClientExistsByEmailAndPassword(clientLoginRequest.getEmail(), clientLoginRequest.getPassword());
+
+        return new ClientLoginResponse(clientFound.getClientId(), clientFound.getUserName());
+
+    }
+
+    private Client checkClientExistsByEmailAndPassword(String email, String password){
+
+        return clientRepository.findByEmailAndPassword(email, password)
+                .orElseThrow(() -> new ClientNotExistException("Cliente não existe, corrija email e/ou senha!"));
     }
 }

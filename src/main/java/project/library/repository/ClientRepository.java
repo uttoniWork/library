@@ -1,10 +1,13 @@
 package project.library.repository;
 
-import org.example.model.Client;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import project.library.model.Client;
 
-//@Repository
-//public interface ClientRepository extends JPARepository<Client, Long>{
-public interface ClientRepository {
+import java.util.Optional;
 
-    Client save(Client client);
+@Repository
+public interface ClientRepository extends CrudRepository<Client, Long> {
+
+    Optional<Client> findByEmailAndPassword(String email, String password);
 }
