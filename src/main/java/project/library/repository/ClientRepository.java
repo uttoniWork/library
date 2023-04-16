@@ -1,10 +1,10 @@
 package project.library.repository;
 
-import org.example.model.Client;
+import org.springframework.data.neo4j.repository.ReactiveNeo4jRepository;
+import org.springframework.stereotype.Repository;
+import project.library.model.Client;
 
-//@Repository
-//public interface ClientRepository extends JPARepository<Client, Long>{
-public interface ClientRepository {
+@Repository
+public interface ClientRepository extends ReactiveNeo4jRepository<Client, Long> {
 
-    Client save(Client client);
 }
