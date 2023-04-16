@@ -29,7 +29,7 @@ public class ClientController {
         return ResponseEntity.ok(savedClient);
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public ResponseEntity<ClientLoginResponse> loginClient(@RequestBody ClientLoginRequest clientLoginRequest) {
         ClientLoginResponse clientLoginResponse = clientService.loginClient(clientLoginRequest);
 

@@ -12,7 +12,7 @@ public class Client {
 
     @Id
     @GeneratedValue
-    private long clientId;
+    private Long clientId;
     @Property
     private final String userName;
     @Property
@@ -29,7 +29,7 @@ public class Client {
         this.dateCreated = LocalDateTime.now();
     }
 
-    public long getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
