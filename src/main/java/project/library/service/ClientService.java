@@ -1,9 +1,8 @@
 package project.library.service;
 
-import org.example.dto.ClientLoginRequest;
-import org.example.dto.ClientRequest;
-import org.example.model.Client;
-import org.example.repository.ClientRepository;
+import project.library.dto.ClientRequest;
+import project.library.model.Client;
+import project.library.repository.ClientRepository;
 
 public class ClientService {
 
@@ -17,12 +16,5 @@ public class ClientService {
         final Client client = new Client(clientRequest.getUserName(), clientRequest.getEmail(), clientRequest.getPassword());
 
         return clientRepository.save(client);
-    }
-
-    public Long loginClient(ClientLoginRequest clientLoginRequest) {
-        final Long clientId = clientRepositoryfindClientClientIdByClientEmailAndPassword(clientRepository
-
-                S
-        );
     }
 }
