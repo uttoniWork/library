@@ -37,4 +37,8 @@ public class ClientService {
         return clientRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new ClientNotExistException("Cliente não existe, corrija email e/ou senha!"));
     }
+
+    public Client findClient(Long clientId){
+        return clientRepository.findById(clientId).get();
+    }
 }

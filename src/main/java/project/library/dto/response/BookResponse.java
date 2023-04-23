@@ -1,44 +1,37 @@
-package project.library.model;
+package project.library.dto.response;
 
-import org.springframework.data.neo4j.core.schema.*;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
+import project.library.model.Client;
+import project.library.model.Genre;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Node("book")
-public class Book {
+public class BookResponse {
 
-    @Id
-    @GeneratedValue
     private Long bookId;
-    @Property
     private String title;
-    @Property
     private String author;
-    @Property
     private String coverImage;
     @Relationship(type = "EH_DO_GENERO", direction = Relationship.Direction.OUTGOING)
     private List<Genre> genres;
-    @Property
     private String editor;
-    @Property
     private Short releaseYear;
-    @Property
-    private LocalDateTime dateCreated;
-    @Relationship(type = "GOSTA_DO_LIVRO", direction = Relationship.Direction.INCOMING)
-    private Client client;
 
-    public Book() {}
+    public BookResponse() {
+    }
 
-    public Book(String title, String author, String coverImage, List<Genre> genres, String editor, Short releaseYear, Client client) {
+    public BookResponse(Long bookId, String title, String author, String coverImage, List<Genre> genres, String editor, Short releaseYear) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.coverImage = coverImage;
         this.genres = genres;
         this.editor = editor;
         this.releaseYear = releaseYear;
-        this.client = client;
-        this.dateCreated = LocalDateTime.now();
     }
 
     public Long getBookId() {
@@ -95,21 +88,5 @@ public class Book {
 
     public void setReleaseYear(Short releaseYear) {
         this.releaseYear = releaseYear;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 }
