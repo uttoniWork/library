@@ -1,5 +1,6 @@
 package project.library.service;
 
+import org.springframework.stereotype.Service;
 import project.library.dto.request.ClientLoginRequest;
 import project.library.dto.request.ClientRequest;
 import project.library.dto.response.ClientLoginResponse;
@@ -7,6 +8,7 @@ import project.library.exception.ClientNotExistException;
 import project.library.model.Client;
 import project.library.repository.ClientRepository;
 
+@Service
 public class ClientService {
 
     private final ClientRepository clientRepository;

@@ -1,11 +1,7 @@
 package project.library.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.library.dto.request.ClientLoginRequest;
 import project.library.dto.request.ClientRequest;
 import project.library.dto.response.ClientLoginResponse;
@@ -30,8 +26,9 @@ public class ClientController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<ClientLoginResponse> loginClient(@RequestBody ClientLoginRequest clientLoginRequest) {
-        ClientLoginResponse clientLoginResponse = clientService.loginClient(clientLoginRequest);
+    public ResponseEntity<ClientLoginResponse> loginClient(@RequestParam String email,
+                                                           @RequestParam String password) {
+        ClientLoginResponse clientLoginResponse = clientService.loginClient(new ClientLoginRequest(email, password));
 
         return ResponseEntity.ok(clientLoginResponse);
     }
