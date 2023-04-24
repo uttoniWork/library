@@ -21,11 +21,11 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookRegistrationResponse> postBook(@RequestBody BookRegistrationRequest bookRegistrationRequest){
+    public ResponseEntity<BookResponse> postBook(@RequestBody BookRegistrationRequest bookRegistrationRequest){
 
-        final BookRegistrationResponse bookRegistrationResponse = bookService.saveBook(bookRegistrationRequest);
+        final BookResponse bookResponse = bookService.saveBook(bookRegistrationRequest);
 
-        return ResponseEntity.ok(bookRegistrationResponse);
+        return ResponseEntity.ok(bookResponse);
     }
 
     @GetMapping
