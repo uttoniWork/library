@@ -35,7 +35,7 @@ public class BookController {
     }
 
     @GetMapping("/genre")
-    public ResponseEntity<List<Book>> getBooksByGenre(@RequestParam String genreName){
+    public ResponseEntity<List<BookResponse>> getBooksByGenre(@RequestParam String genreName){
 
         return ResponseEntity.ok(bookService.findBooksByGenre(genreName));
     }

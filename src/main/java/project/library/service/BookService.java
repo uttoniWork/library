@@ -61,7 +61,7 @@ public class BookService {
         return bookResponseFactory.getBookResponseList(bookRepository.findByClientClientId(clientId));
     }
 
-    public List<Book> findBooksByGenre(String genreName) {
-        return bookRepository.findByGenresGenreName(genreName);
+    public List<BookResponse> findBooksByGenre(String genreName) {
+        return bookResponseFactory.getBookResponseList(bookRepository.findByGenresGenreName(genreName));
     }
 }
