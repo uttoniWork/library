@@ -2,14 +2,14 @@ package project.library.service;
 
 import org.springframework.stereotype.Service;
 import project.library.dto.request.BookRegistrationRequest;
-import project.library.dto.response.BookRegistrationResponse;
 import project.library.dto.response.BookResponse;
 import project.library.exception.BookAlreadyExistsException;
+import project.library.factory.BookFactory;
 import project.library.factory.BookResponseFactory;
 import project.library.model.Book;
+import project.library.model.Client;
 import project.library.model.Genre;
 import project.library.repository.BookRepository;
-import project.library.repository.GenreRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +20,16 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final ClientService clientService;
-    private final GenreRepository genreRepository;
-    BookResponseFactory bookResponseFactory = new BookResponseFactory();
+    private final GenreService genreService;
+    private final BookResponseFactory bookResponseFactory;
+    private final BookFactory bookFactory;
 
-
-    public BookService(BookRepository bookRepository, ClientService clientService, GenreRepository genreRepository) {
+    public BookService(BookRepository bookRepository, ClientService clientService, GenreService genreService, BookResponseFactory bookResponseFactory, BookFactory bookFactory) {
         this.bookRepository = bookRepository;
         this.clientService = clientService;
-        this.genreRepository = genreRepository;
+        this.genreService = genreService;
+        this.bookResponseFactory = bookResponseFactory;
+        this.bookFactory = bookFactory;
     }
 
     public BookResponse saveBook(BookRegistrationRequest bookRegistrationRequest) {
@@ -37,21 +39,14 @@ public class BookService {
         List<Genre> genres = new ArrayList<>();
 
         bookRegistrationRequest.getGenres().forEach(genre -> {
-            genres.add(genreRepository.findByGenreId(genre.getGenreId()));
+            genres.add(genreService.findGenre(genre.getGenreId()));
         });
 
-        final Book book = new Book(
-                bookRegistrationRequest.getTitle(),
-                bookRegistrationRequest.getAuthor(),
-                bookRegistrationRequest.getCoverImage(),
-                genres,
-                bookRegistrationRequest.getEditor(),
-                bookRegistrationRequest.getReleaseYear(),
-                clientService.findClient(bookRegistrationRequest.getClientId()));
+        final Client client = clientService.findClient(bookRegistrationRequest.getClientId());
 
-        final Book savedBook = bookRepository.save(book);
+        final Book savedBook = bookRepository.save(bookFactory.getBook(bookRegistrationRequest, genres, client));
 
-        return bookResponseFactory.getBookResponse(book);
+        return bookResponseFactory.getBookResponse(savedBook);
     }
 
     private void checkBookDoesNotExist(String title, String author){
@@ -63,7 +58,6 @@ public class BookService {
     }
 
     public List<BookResponse> findClientBookList(Long clientId) {
-
         return bookResponseFactory.getBookResponseList(bookRepository.findByClientClientId(clientId));
     }
 

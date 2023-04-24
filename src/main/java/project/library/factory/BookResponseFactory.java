@@ -1,11 +1,13 @@
 package project.library.factory;
 
+import org.springframework.stereotype.Component;
 import project.library.dto.response.BookResponse;
 import project.library.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BookResponseFactory {
 
     public BookResponse getBookResponse(Book book) {
