@@ -1,18 +1,23 @@
 package project.library.dto.request;
 
+import project.library.model.Genre;
+
 import java.util.List;
 
 public class BookRegistrationRequest {
 
-    private long clientId;
-    private final String title;
-    private final String author;
-    private final String coverImage;
-    private final List<String> genres;
-    private final String editor;
-    private final short releaseYear;
+    private Long clientId;
+    private String title;
+    private String author;
+    private String coverImage;
+    private List<Genre> genres;
+    private String editor;
+    private short releaseYear;
 
-    public BookRegistrationRequest(long clientId, String title, String author, String coverImage, List<String> genres, String editor, short releaseYear) {
+    public BookRegistrationRequest() {
+    }
+
+    public BookRegistrationRequest(long clientId, String title, String author, String coverImage, List<Genre> genres, String editor, short releaseYear) {
         this.clientId = clientId;
         this.title = title;
         this.author = author;
@@ -24,6 +29,10 @@ public class BookRegistrationRequest {
 
     public long getClientId() {
         return clientId;
+    }
+
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     public String getTitle() {
@@ -38,7 +47,7 @@ public class BookRegistrationRequest {
         return coverImage;
     }
 
-    public List<String> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 

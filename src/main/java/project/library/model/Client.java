@@ -14,13 +14,15 @@ public class Client {
     @GeneratedValue
     private Long clientId;
     @Property
-    private final String userName;
+    private String userName;
     @Property
-    private final String email;
+    private String email;
     @Property
-    private final String password;
+    private String password;
     @Property
-    private final LocalDateTime dateCreated;
+    private LocalDateTime dateCreated;
+
+    public Client() {}
 
     public Client(String userName, String email, String password) {
         this.userName = userName;
@@ -31,6 +33,10 @@ public class Client {
 
     public Long getClientId() {
         return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getUserName() {
