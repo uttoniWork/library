@@ -30,11 +30,9 @@ public class ClientService {
         final Client clientFound = checkClientExists(clientLoginRequest.getEmail(), clientLoginRequest.getPassword());
 
         return new ClientLoginResponse(clientFound.getClientId(), clientFound.getUserName());
-
     }
 
     private Client checkClientExists(String email, String password){
-
         return clientRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new ClientNotExistException("Cliente não existe, corrija email e/ou senha!"));
     }
