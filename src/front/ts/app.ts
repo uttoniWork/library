@@ -18,9 +18,6 @@ function HideShow(id, inverse_id){
     document.getElementById(inverse_id).style.display = 'none';
 }
 
-
-
-
 function login() {
     window.open('./index.html');
     window.close();
