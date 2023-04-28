@@ -6,6 +6,9 @@ public class ClientRequest {
     private String email;
     private String password;
 
+    public ClientRequest() {
+    }
+
     public ClientRequest(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
@@ -22,5 +25,17 @@ public class ClientRequest {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

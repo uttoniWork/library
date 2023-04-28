@@ -1,5 +1,6 @@
 package project.library.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.library.dto.request.ClientLoginRequest;
@@ -18,9 +19,13 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Client> postClient(@RequestBody ClientRequest clientRequest) {
+        System.out.println("nome: " + clientRequest.getUserName() + " " + clientRequest.getEmail() + " " + clientRequest.getPassword());
+
+
         Client savedClient = clientService.saveClient(clientRequest);
+
 
         return ResponseEntity.ok(savedClient);
     }
