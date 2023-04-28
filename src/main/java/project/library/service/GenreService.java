@@ -13,7 +13,7 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public Genre findGenre(Long genreId){
-        return genreRepository.findByGenreId(genreId);
+    public Genre findGenre(String genreName) {
+        return genreRepository.findByGenreName(genreName).get();
     }
 }

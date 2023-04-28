@@ -10,14 +10,14 @@ public class BookRegistrationRequest {
     private String title;
     private String author;
     private String coverImage;
-    private List<Genre> genres;
+    private List<String> genres;
     private String editor;
     private short releaseYear;
 
     public BookRegistrationRequest() {
     }
 
-    public BookRegistrationRequest(long clientId, String title, String author, String coverImage, List<Genre> genres, String editor, short releaseYear) {
+    public BookRegistrationRequest(long clientId, String title, String author, String coverImage, List<String> genres, String editor, short releaseYear) {
         this.clientId = clientId;
         this.title = title;
         this.author = author;
@@ -47,7 +47,7 @@ public class BookRegistrationRequest {
         return coverImage;
     }
 
-    public List<Genre> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 

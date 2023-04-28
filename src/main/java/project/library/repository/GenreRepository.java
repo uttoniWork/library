@@ -4,10 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import project.library.model.Genre;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface GenreRepository extends CrudRepository<Genre, Long> {
-    Genre findByGenreId(Long genreId);
+    Optional<Genre> findByGenreName(String genreName);
 }
