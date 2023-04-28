@@ -60,20 +60,22 @@ public class BookService {
     }
 
     public List<BookResponse> findClientBookList(Long clientId) {
-        return bookResponseFactory.getBookResponseList(bookRepository.findByClientClientId(clientId));
+        return bookResponseFactory.getBookResponseList(bookRepository.findByClientListClientId(clientId));
     }
 
     public List<BookResponse> findBooksByGenre(String genreName) {
         return bookResponseFactory.getBookResponseList(bookRepository.findByGenresGenreName(genreName));
     }
 
-    public Book linkBookToClient(BookLinkingRequest bookLinkingRequest) {
+    public void linkBookToClient(BookLinkingRequest bookLinkingRequest) {
         final Client client = clientService.findClient(bookLinkingRequest.getClientId());
         final Book book = findBook(bookLinkingRequest.getBookId());
 
-        book.setClient(client);
+        final List<Client> clients = book.getClientList();
+        clients.add(client);
+        book.setClientList(clients);
 
-        return bookRepository.save(book);
+        bookRepository.save(book);
     }
 
     public Book findBook(Long bookId) {

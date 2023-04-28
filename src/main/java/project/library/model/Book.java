@@ -26,18 +26,18 @@ public class Book {
     @Property
     private LocalDateTime dateCreated;
     @Relationship(type = "GOSTA_DO_LIVRO", direction = Relationship.Direction.INCOMING)
-    private Client client;
+    private List<Client> clientList;
 
     public Book() {}
 
-    public Book(String title, String author, String coverImage, List<Genre> genres, String editor, Short releaseYear, Client client) {
+    public Book(String title, String author, String coverImage, List<Genre> genres, String editor, Short releaseYear, List<Client> clientList) {
         this.title = title;
         this.author = author;
         this.coverImage = coverImage;
         this.genres = genres;
         this.editor = editor;
         this.releaseYear = releaseYear;
-        this.client = client;
+        this.clientList = clientList;
         this.dateCreated = LocalDateTime.now();
     }
 
@@ -105,11 +105,11 @@ public class Book {
         this.dateCreated = dateCreated;
     }
 
-    public Client getClient() {
-        return client;
+    public List<Client> getClientList() {
+        return clientList;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
     }
 }

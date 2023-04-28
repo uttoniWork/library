@@ -41,8 +41,10 @@ public class BookController {
     }
 
     @PostMapping("/choose")
-    public ResponseEntity<Book> linkBookToClient(@RequestBody BookLinkingRequest bookLinkingRequest) {
+    public ResponseEntity<String> linkBookToClient(@RequestBody BookLinkingRequest bookLinkingRequest) {
 
-        return ResponseEntity.ok(bookService.linkBookToClient(bookLinkingRequest));
+        bookService.linkBookToClient(bookLinkingRequest);
+
+        return ResponseEntity.ok("Livro adicionado com sucesso!");
     }
 }

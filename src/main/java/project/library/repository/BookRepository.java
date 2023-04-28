@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
     Optional<Book> findByTitleAndAuthor(String title, String author);
-    List<Book> findByClientClientId(Long clientId);
+    List<Book> findByClientListClientId(Long clientId);
     List<Book> findByGenresGenreName(String genreName);
 }
