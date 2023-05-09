@@ -380,20 +380,6 @@ h6 {
     right: -45px;
   }
 
-  .register-content{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 37.5%;
-  }
-
-.register-content input{
-  display: block;
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
 #content{
   display: none;
 }
@@ -490,4 +476,16 @@ h6 {
 
 #container-search{
   display: none;
+}
+
+
+.form-group {
+  margin-bottom: 10px;
+
+  justify-content: space-between;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
 }

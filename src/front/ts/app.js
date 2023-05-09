@@ -16,10 +16,99 @@ function HideShow(id, inverse_id){
     document.getElementById(inverse_id).style.display = 'none';
 }
 
+function showPopup(img) {
+    const popup = document.getElementById('popup');
+    const popupImage = document.getElementById('popup-image');
+    const popupTitle = document.getElementById('popup-title');
+
+    popupImage.src = img.src;
+    popupTitle.innerText = img.alt;
+
+    popup.style.display = 'flex';
+  }
+
+  function closePopup() {
+    const popup = document.getElementById('popup');
+
+    popup.style.display = 'none';
+  }
+
+
+
+
+function showRegister(id){
+    document.getElementById(id).style.display = 'block'
+}
+
+
+
+
+
+
+
+
+
+function hideRegister(id){
+
+    document.getElementById(id).style.display = 'none'
+
+}
+
+
 function login() {
     window.open('./index.html');
     window.close();
+
+    let url = 'http://localhost:15000/login';
+
+    var form = document.getElementById("create");
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value
+        const password = document.getElementById("password").value
+
+        var clientRequest = {
+          "email": email,
+          "password": password,
+        };
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(clientRequest)
+        })
+            .then(response => response.json())
+            .then(response => console.log(JSON.stringify(response)))
+
+    });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function create() {
 
