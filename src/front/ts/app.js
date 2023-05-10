@@ -3,7 +3,10 @@ var btnSignup = document.querySelector("#signup");
 var body = document.querySelector("body");
 var element = document.getElementById("content");
 
-var loggedClient;
+var loggedClient = {
+    clientId: "",
+    username: ""
+};
 
 btnSignin.addEventListener("click", function () {
     body.className = "sign-in-js";
@@ -37,35 +40,47 @@ function showPopup(img) {
 
 function showRegister(id){
     document.getElementById(id).style.display = 'block'
-}
 
-function createBook(id){
+    console.log("criando livro")
 
-    document.getElementById(id).style.display = 'none'
+    // document.getElementById(idDiv).style.display = 'none'
+
+    // loggedClient = localStorage.getItem("storageLoggedClient");
 
     let url = 'http://localhost:15000/book';
 
-    var form = document.getElementById("create");
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+    console.log("url: " + url)
+
+    var form = document.getElementById("createBook");
+
+    console.log("Form: " + form)
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit",function (event) {
         event.preventDefault();
 
-        const clientId = loggedClient.clientId
+        console.log("entrei no form")
+
+        const clientId = 2
         const title = document.getElementById("book_name").value
         const author = document.getElementById("autor").value
-        const coverImage = document.getElementById("image").value
-        const gender = document.getElementById("genero").value
+        // const coverImage = document.getElementById("image").value
+        const coverImage = "foto"
+        // const genres = document.getElementById("genero").value
+        const genres = ["Fantasia"]
         const editor = document.getElementById("editora").value
-        const releaseYear = document.getElementById("mes").value
+        // const releaseYear = document.getElementById("mes").value
+        const releaseYear = 2023
 
-
-        var clientRequest = {
-          "clientId": clientId,
-          "title": title,
-          "coverImage": coverImage,
-          "gender": gender,
-          "editor": editor,
-          "releaseYear": releaseYear
+        var bookRequest = {
+            "clientId": clientId,
+            "title": title,
+            "author": author,
+            "coverImage": coverImage,
+            "genres": genres,
+            "editor": editor,
+            "releaseYear": releaseYear
         };
+
+        console.log("request enviado: " + JSON.stringify(bookRequest))
 
         fetch(url, {
             method: 'POST',
@@ -73,11 +88,63 @@ function createBook(id){
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(clientRequest)
+            body: JSON.stringify(bookRequest)
         })
-            .then(response => response.json())
+            .then(response => {
+                console.log(response.json())
+            })
     });
-    alert("usuario cadastrado");
+}
+
+function createBook(idDiv){
+
+    console.log("criando livro")
+
+    // document.getElementById(idDiv).style.display = 'none'
+
+    loggedClient = localStorage.getItem("storageLoggedClient");
+
+    let url = 'http://localhost:15000/book';
+
+    var form = document.getElementById("createBook");
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const clientId = loggedClient.clientId
+        const title = document.getElementById("book_name").value
+        const author = document.getElementById("autor").value
+        // const coverImage = document.getElementById("image").value
+        const coverImage = "foto"
+        // const genres = document.getElementById("genero").value
+        const genres = ["Fantasia"]
+        const editor = document.getElementById("editora").value
+        // const releaseYear = document.getElementById("mes").value
+        const releaseYear = 2023
+
+        var bookRequest = {
+          "clientId": clientId,
+          "title": title,
+          "author": author,
+          "coverImage": coverImage,
+          "genres": genres,
+          "editor": editor,
+          "releaseYear": releaseYear
+        };
+
+        console.log(JSON.stringify(bookRequest))
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookRequest)
+        })
+            .then(response => {
+                console.log(response.json())
+            })
+    });
 }
 
 function login() {
@@ -100,11 +167,13 @@ function login() {
         })
             .then(response =>  response.json())
             .then((json) => {
-                loggedClient = json;
+                // localStorage.setItem("storageLoggedClient", loggedClient);
+                loggedClient = json
                 window.open('./index.html');
                 window.close();
             })
     });
+
 
     window.open('./index.html');
     window.close();
