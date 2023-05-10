@@ -3,12 +3,7 @@ var btnSignup = document.querySelector("#signup");
 var body = document.querySelector("body");
 var element = document.getElementById("content");
 
-var loggedClient = {
-    clientId: "",
-    userName: ""
-};
-
-var outroClient;
+var loggedClient;
 
 btnSignin.addEventListener("click", function () {
     body.className = "sign-in-js";
@@ -40,20 +35,9 @@ function showPopup(img) {
     popup.style.display = 'none';
   }
 
-
-
-
 function showRegister(id){
     document.getElementById(id).style.display = 'block'
 }
-
-
-
-
-
-
-
-
 
 function createBook(id){
 
@@ -94,11 +78,7 @@ function createBook(id){
             .then(response => response.json())
     });
     alert("usuario cadastrado");
-
-
-
 }
-
 
 function login() {
 
@@ -129,29 +109,6 @@ function login() {
     window.open('./index.html');
     window.close();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function create() {
 
