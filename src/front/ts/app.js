@@ -62,10 +62,10 @@ function hideRegister(id){
 }
 
 
-async function login() {
+function login() {
 
     var form = document.getElementById("login");
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit", async function (event) {
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit",function (event) {
         event.preventDefault();
 
         const email = document.getElementById("emailLogin").value
@@ -73,20 +73,21 @@ async function login() {
 
         let url = 'http://localhost:15000/client/login?email=' + email + '&password=' + password;
 
-        loggedClient = await fetch(url, {
+        fetch(url, {
             method: 'GET',
             headers: {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
         })
-            .then(response => loggedClient = response.json())
+            .then(response =>  response.json())
+            .then((json) => {
+                loggedClient = json;
+                console.log("Client id: " + loggedClient.clientId)
+                window.open('./index.html');
+                window.close();
+            })
     });
-
-    console.log("Client ID: " + loggedClient.clientId)
-
-    // window.open('./index.html');
-    // window.close();
 }
 
 
