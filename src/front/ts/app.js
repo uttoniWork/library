@@ -83,7 +83,6 @@ function login() {
             .then(response =>  response.json())
             .then((json) => {
                 loggedClient = json;
-                console.log("Client id: " + loggedClient.clientId)
                 window.open('./index.html');
                 window.close();
             })
@@ -140,8 +139,6 @@ function create() {
             body: JSON.stringify(clientRequest)
         })
             .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
-
     });
     alert("usuario cadastrado");
 }
