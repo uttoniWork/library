@@ -3,6 +3,13 @@ var btnSignup = document.querySelector("#signup");
 var body = document.querySelector("body");
 var element = document.getElementById("content");
 
+var loggedClient = {
+    clientId: "",
+    userName: ""
+};
+
+var outroClient;
+
 btnSignin.addEventListener("click", function () {
     body.className = "sign-in-js";
 });
@@ -55,36 +62,31 @@ function hideRegister(id){
 }
 
 
-function login() {
-    window.open('./index.html');
-    window.close();
+async function login() {
 
-    let url = 'http://localhost:15000/login';
-
-    var form = document.getElementById("create");
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+    var form = document.getElementById("login");
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const email = document.getElementById("email").value
-        const password = document.getElementById("password").value
+        const email = document.getElementById("emailLogin").value
+        const password = document.getElementById("passwordLogin").value
 
-        var clientRequest = {
-          "email": email,
-          "password": password,
-        };
+        let url = 'http://localhost:15000/client/login?email=' + email + '&password=' + password;
 
-        fetch(url, {
+        loggedClient = await fetch(url, {
             method: 'GET',
             headers: {
                 // 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(clientRequest)
         })
-            .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
-
+            .then(response => loggedClient = response.json())
     });
+
+    console.log("Client ID: " + loggedClient.clientId)
+
+    // window.open('./index.html');
+    // window.close();
 }
 
 
