@@ -68,7 +68,7 @@
     </section>
 
 
-    <section id="busca" class="busca">
+    <section id="busca_busca" class="busca">
       <div id="container-search"class="container">
 
         <form class="search-container">
@@ -106,16 +106,33 @@
           </div>
           <div id="content" class="register-content">
             <form class="">
-              <div class="form-group">
-                <input type="text" name="nome" placeholder="Nome*">
-                <input type="text" name="autor" placeholder="Autor*">
-                <input type="file" name="image" placeholder="Image*">
-                <input type="text" name="generos" placeholder="Generos">
-                <input type="text" name="editora" placeholder="Editora">
-                <span>Ano de lançamento: </span>
-                <input type="month" name="lançamento" placeholder="Ano de lançamento">
+              <div id="createBook"class="form-group">
+                <label for="book_name">Nome:
+                <input type="text" id="book_name">
+                </label>
+
+                <label for="autor">Autor:
+                <input type="text" id="autor">
+                </label>
+
+                <label for="image">Imagem:
+                <input type="file" id="image">
+                </label>
+
+                <label for="genero">Generos:
+                <input type="text" id="genero" multiple>
+                </label>
+
+                <label for="editora">Editora:
+                <input type="text" id="editora" >
+                </label>
+
+                <label for="mes">Ano de lançamento:
+                <input type="month" id="mes">
+                </label>
+
                 <div class="button">
-                <input type="button" value="Cadastrar" onclick="hideRegister('content')">
+                <button type="submit"onclick="createBook('content')" class="btn btn-second">Cadastrar</button>
                 </div>
               </div>
             </form>

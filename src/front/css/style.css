@@ -119,6 +119,7 @@ p{
 .form input {
     height: 45px;
     width: 100%;
+    padding-left: 10px;
     border: none;
     background-color: #ecf0f1;
 }
@@ -493,6 +494,39 @@ input:-webkit-autofill
     }
 }
 
-.input{
-    padding-left: 10;
+#form-group input{
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 20px;
 }
+
+.lista .gallery {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .gallery img {
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+  }
+
+.lista #popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 9999;
+  }
+
+.lista #popup-image {
+    width: 400px;
+    height: 300px;
+  }
+
+.lista #popup-title {
+    margin-left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }

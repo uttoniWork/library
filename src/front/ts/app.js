@@ -55,9 +55,47 @@ function showRegister(id){
 
 
 
-function hideRegister(id){
+function createBook(id){
 
     document.getElementById(id).style.display = 'none'
+
+    let url = 'http://localhost:15000/book';
+
+    var form = document.getElementById("create");
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const clientId = loggedClient.clientId
+        const title = document.getElementById("book_name").value
+        const author = document.getElementById("autor").value
+        const coverImage = document.getElementById("image").value
+        const gender = document.getElementById("genero").value
+        const editor = document.getElementById("editora").value
+        const releaseYear = document.getElementById("mes").value
+
+
+        var clientRequest = {
+          "clientId": clientId,
+          "title": title,
+          "coverImage": coverImage,
+          "gender": gender,
+          "editor": editor,
+          "releaseYear": releaseYear
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(clientRequest)
+        })
+            .then(response => response.json())
+    });
+    alert("usuario cadastrado");
+
+
 
 }
 
@@ -87,6 +125,9 @@ function login() {
                 window.close();
             })
     });
+
+    window.open('./index.html');
+    window.close();
 }
 
 

@@ -489,3 +489,6 @@ h6 {
   display: block;
   margin-bottom: 5px;
 }
+.form-group input{
+  padding-left: 10px;
+}
