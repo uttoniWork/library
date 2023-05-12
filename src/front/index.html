@@ -16,12 +16,13 @@
 </head>
 
 <body>
-<!-- HEADER  -->
+  <div class="index">
+    <!-- HEADER  -->
   <header id="header">
     <div class="d-flex flex-column">
       <div class="profile">
 
-        <h1 class="text-light"><a href="index.html">Fulano(a)</a></h1>
+        <h1 class="text-light"><span id="clientName"></span></h1>
 
       </div>
     </div>
@@ -42,113 +43,152 @@
 <!-- FIM HEADER  -->
 
 
-  <main class="main">
-    <section id="listar" class="listar">
-      <div id="container-list" class="container">
+<main class="main">
+      <section id="listar" class="listar">
+        <div id="container-list" class="container">
 
-        <div class="section-title">
-          <h2>Minha lista</h2>
-        </div>
-
-<!--        <div id="lista" class="lista">-->
-<!--            <ul>-->
-<!--              <div class="galery">-->
-<!--                <img src="images/exemplo.jpg" width="230" class="img-fluid" height="230" onclick="showPopup(this)" alt="livro 1">-->
-
-<!--              </div>-->
-
-<!--              <div id="popup">-->
-<!--                <img id="popup-image" src="">-->
-<!--                <div id="popup-title"></div>-->
-
-<!--              </div>-->
-<!--            </ul>-->
-<!--        </div>-->
-      </div>
-    </section>
-
-
-    <section id="busca_busca" class="busca">
-      <div id="container-search"class="container">
-
-        <form class="search-container">
-          <input type="text" id="search-bar" placeholder="Busca">
-          <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
-        </form>
-
-        <div class="found">
-
-
-        <div id="lista" class="lista">
-          <ul>
-            <div class="galery">
-              <img src="images/exemplo.jpg" width="230" class="img-fluid" height="230" onclick="showPopup(this)" alt="livro 1">
-
-            </div>
-
-            <div id="popup">
-              <img id="popup-image" src="">
-              <div id="popup-title"></div>
-            </div>
-          </ul>
-        </div>
-
-
-
-        </div>
-
-        <div id="not-found" class="not-found">
-         <div>
-          <h4> livro não encontrado?, deseja registrar?</h4>
-         </div>
-          <div class="input-b">
-            <input type="button" value="Cadastrar?" onclick="showRegister('content')">
+          <div class="section-title">
+            <h2>Minha lista</h2>
           </div>
-          <div id="content" class="register-content">
-            <form id="createBook" class="form">
-<!--              <div class="form-group">-->
-              <label for="book_name">Nome:
-              <input type="text" id="book_name" required="false">
-              </label>
 
-              <label for="autor">Autor:
-              <input type="text" id="autor" required="false">
-              </label>
+          <div class="galery">
+            <ul >
+              <li>
+                <div  id="berserkerDiv" class="berserkerClass" >
+                  <img
+                  src="https://steamuserimages-a.akamaihd.net/ugc/1722038109962735453/892F228E4A9E9602E12400618F58830775C4D947/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                  class="guts" alt="padrao"
+                  width="256" height="256"
+                  onclick="showPopup(this)">
+                </div>
+              </li>
 
-              <label for="image">Imagem:
-              <input type="file" id="image" required="false">
-              </label>
 
-              <label for="genero">Generos:
-              <input type="text" id="genero" multiple required="false">
-              </label>
+              <li>
+                <div  id="berserkerDiv" class="berserkerClass" >
+                  <img
+                  src="https://preview.redd.it/blind-girls-peaceful-day-at-the-park-art-by-popopoka-v0-0fmu7r7wqb6a1.jpg?auto=webp&s=6f7d26bd57188f25bc4de82f2587856eded8a344"
+                  class="guts" alt="banco"
+                  width="256" height="256"
+                  onclick="showPopup(this)">
+                </div>
+              </li>
+            </ul>
 
-              <label for="editora">Editora:
-              <input type="text" id="editora"  required="false">
-              </label>
+            <div id="griffithDiv" class = "popup" >
+              <img id="popup-image"
+              width="300"
+              height="300"
+              src="">
+              <div id="popup-title"></div>
 
-              <label for="mes">Ano de lançamento:
-              <input type="month" id="mes" required="false">
-              </label>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<!--                <div class="button">-->
-              <button type="submit" class="btn btn-second" onclick="showRegister('content')">Cadastrar</button>
-<!--                </div>-->
-<!--              </div>-->
+
+      <section id="busca_busca" class="busca">
+        <div id="container-search"class="container">
+
+          <div>
+            <form class="search-container">
+              <input type="text" id="search-bar" placeholder="Busca">
+              <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
             </form>
           </div>
+
+          <div class="found">
+
+            <ul >
+              <li>
+                <div  id="berserkerDiv" class="berserkerClass" >
+                  <img
+                  src="https://steamuserimages-a.akamaihd.net/ugc/1722038109962735453/892F228E4A9E9602E12400618F58830775C4D947/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                  class="guts" alt="padrao"
+                  width="256" height="256"
+                  onclick="showPopup(this)">
+                </div>
+              </li>
+            </ul>
+            <div id="griffithDiv" class = "popup" >
+              <img id="popup-image"
+              width="300"
+              height="300"
+              src="">
+              <div id="popup-title"></div>
+
+            </div>
+
+
+
+
+
+          </div>
+
+          <div id="not-found" class="not-found">
+          <div>
+            <h4> livro não encontrado?, deseja registrar?</h4>
+          </div>
+            <div class="input-b">
+              <input type="button" value="Cadastrar?" onclick="showRegister('content')">
+            </div>
+            <div id="content" class="register-content" style="display: none;">
+              <form  class="">
+                <div class="input-book">
+                  <div id="createBook" class="form-group">
+
+                    <div class="book-detail">
+                      <label for="book_name" class="respostaUm">Nome:
+                        <input type="text" id="book-name"  class="respostaDois">
+                      </label>
+                    </div>
+
+                    <div class="book-detail">
+                      <label for="autor" class="respostaUm">Autor:
+                        <input type="text" id="autor" class="respostaDois">
+                      </label>
+                    </div>
+
+                    <div class="book-detail">
+                      <label for="image" class="respostaUm">Imagem:
+                        <input type="text" id="image"  class="respostaDois" placeholder="  insira o link da imagem">
+                      </label>
+                    </div>
+
+                    <div class="book-detail">
+                      <label for="genero" class="respostaUm">Generos:
+                        <input type="text" id="genero"  class="respostaDois" multiple >
+                      </label>
+                    </div>
+
+                    <div class="book-detail">
+                      <label for="editora" class="respostaUm">Editora:
+                        <input type="text" id="editora"  class="respostaDois">
+                      </label>
+                    </div>
+
+                    <div class="book-detail">
+                      <label for="mes" class="respostaUm">Ano de lançamento:
+                        <input type="text" id="mes" class="respostaDois" >
+                      </label>
+                    </div>
+
+                  <div class="button">
+                </div>
+                <button type="submit" class="btn btn-second" onclick="createBook()">Cadastrar</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   </main>
 
+  </div>
 
 
-
-
-
-<!--  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>-->
-<!--  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>-->
   <script src="ts/app.js"></script>
 </body>
 </html>
