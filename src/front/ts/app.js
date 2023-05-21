@@ -3,6 +3,16 @@ var btnSignup = document.querySelector("#signup");
 var body = document.querySelector("body");
 var element = document.getElementById("content");
 
+
+btnSignin.addEventListener("click", function () {
+    body.className = "sign-in-js";
+});
+
+btnSignup.addEventListener("click", function () {
+    body.className = "sign-up-js";
+});
+
+
 //////////////////////////////////////////////
 var berserkerDiv = document.querySelector("#berserkerDiv");
 var griffithDiv = document.querySelector("#griffithDiv");
@@ -38,18 +48,6 @@ function showPopup(img) {
 
 
 }
-var loggedClient = {
-    clientId: "",
-    username: ""
-};
-
-btnSignin.addEventListener("click", function () {
-    body.className = "sign-in-js";
-});
-
-btnSignup.addEventListener("click", function () {
-    body.className = "sign-up-js";
-});
 
 
 function getClient(){
@@ -177,9 +175,6 @@ function createBook(){
 
 function login() {
 
-    var form = document.getElementById("login");
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit",function (event) {
-        event.preventDefault();
 
         const email = document.getElementById("emailLogin").value
         const password = document.getElementById("passwordLogin").value
@@ -193,15 +188,16 @@ function login() {
                 'Content-Type': 'application/json'
             },
         })
-            .then(response =>  response.json())
+            .then(response => {response.json()})
             .then((json) => {
-                loggedClient = json
-                saveClient(loggedClient);
-                document.getElementById('clientName').textContent = loggedClient.username;
+                saveClient(json);
+                console.log(json)
+
+                document.getElementById('clientName').textContent = saveClient().userName;
                 window.open('./index.html');
                 window.close();
             })
-    });
+
 
 }
 
@@ -231,9 +227,13 @@ function create() {
             },
             body: JSON.stringify(clientRequest)
         })
-            .then(response => response.json())
+            .then(response => {
+                alert("usuario cadastrado");
+                response.json()
+
+            })
     });
-    alert("usuario cadastrado");
+
 }
 
 
