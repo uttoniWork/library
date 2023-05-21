@@ -23,6 +23,8 @@ public class BookController {
     @PostMapping
     public ResponseEntity<BookResponse> postBook(@RequestBody BookRegistrationRequest bookRegistrationRequest) {
 
+        System.out.println("Livro novo: " + bookRegistrationRequest.toString());
+
         final BookResponse bookResponse = bookService.saveBook(bookRegistrationRequest);
 
         return ResponseEntity.ok(bookResponse);

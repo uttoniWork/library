@@ -58,4 +58,17 @@ public class BookRegistrationRequest {
     public short getReleaseYear() {
         return releaseYear;
     }
+
+    @Override
+    public String toString() {
+        return "BookRegistrationRequest{" +
+                "clientId=" + clientId +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", coverImage='" + coverImage + '\'' +
+                ", genres=" + genres +
+                ", editor='" + editor + '\'' +
+                ", releaseYear=" + releaseYear +
+                '}';
+    }
 }
