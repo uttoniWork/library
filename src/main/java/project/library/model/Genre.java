@@ -10,6 +10,14 @@ public class Genre {
     private Long genreId;
     private String genreName;
 
+    public Genre() {
+    }
+
+    public Genre(Long genreId, String genreName) {
+        this.genreId = genreId;
+        this.genreName = genreName;
+    }
+
     public Long getGenreId() {
         return genreId;
     }
