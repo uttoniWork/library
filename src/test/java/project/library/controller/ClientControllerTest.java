@@ -24,7 +24,7 @@ class ClientControllerTest {
     private final ClientController clientController = new ClientController(clientService);
 
     @Test
-    void shouldPostClient() {
+    public void shouldPostClient() {
         when(clientService.saveClient(any(ClientRequest.class))).thenReturn(getClient());
 
         final ResponseEntity<Client> actualClientResponse = clientController.postClient(getClientRequest());
@@ -36,7 +36,7 @@ class ClientControllerTest {
     }
 
     @Test
-    void shouldLoginClient() {
+    public void shouldLoginClient() {
         when(clientService.loginClient(any(ClientLoginRequest.class))).thenReturn(getClientLoginResponse());
 
         final ResponseEntity<ClientLoginResponse> actualClientResponse = clientController.loginClient(EMAIL, PASSWORD);
