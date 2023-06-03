@@ -112,4 +112,34 @@ public class Book {
     public void setClientList(List<Client> clientList) {
         this.clientList = clientList;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (bookId != null ? !bookId.equals(book.bookId) : book.bookId != null) return false;
+        if (title != null ? !title.equals(book.title) : book.title != null) return false;
+        if (author != null ? !author.equals(book.author) : book.author != null) return false;
+        if (coverImage != null ? !coverImage.equals(book.coverImage) : book.coverImage != null) return false;
+        if (genres != null ? !genres.equals(book.genres) : book.genres != null) return false;
+        if (editor != null ? !editor.equals(book.editor) : book.editor != null) return false;
+        if (releaseYear != null ? !releaseYear.equals(book.releaseYear) : book.releaseYear != null) return false;
+        return clientList != null ? clientList.equals(book.clientList) : book.clientList == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = bookId != null ? bookId.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (coverImage != null ? coverImage.hashCode() : 0);
+        result = 31 * result + (genres != null ? genres.hashCode() : 0);
+        result = 31 * result + (editor != null ? editor.hashCode() : 0);
+        result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
+        result = 31 * result + (clientList != null ? clientList.hashCode() : 0);
+        return result;
+    }
 }

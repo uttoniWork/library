@@ -54,4 +54,26 @@ public class Client {
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (clientId != null ? !clientId.equals(client.clientId) : client.clientId != null) return false;
+        if (userName != null ? !userName.equals(client.userName) : client.userName != null) return false;
+        if (email != null ? !email.equals(client.email) : client.email != null) return false;
+        return password != null ? password.equals(client.password) : client.password == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = clientId != null ? clientId.hashCode() : 0;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
+    }
 }

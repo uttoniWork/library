@@ -1,7 +1,6 @@
 package project.library.service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.influx.InfluxDbOkHttpClientBuilderProvider;
 import project.library.dto.request.BookLinkingRequest;
 import project.library.dto.request.BookRegistrationRequest;
 import project.library.dto.response.BookResponse;
@@ -40,7 +39,6 @@ public class BookServiceTest {
     private static final String CLIENT_PASSWORD = "1234";
     private static final List<String> GENRE_NAMES = Arrays.asList("Ficção Científica", "Fantasia");
     private static final List<Genre> GENRE_LIST = Arrays.asList(new Genre(1l, GENRE_NAMES.get(0)), new Genre(2l, GENRE_NAMES.get(1)));
-    private static final List<Client> CLIENT_LIST = Arrays.asList(new Client(CLIENT_NAME, CLIENT_EMAIL, CLIENT_PASSWORD));
     private static final String BOOK_NOT_EXIST_EXCEPTION_MESSAGE = "Livro não cadastrado!";
 
     private final BookRepository bookRepository = mock(BookRepository.class);
@@ -56,8 +54,8 @@ public class BookServiceTest {
         when(bookRepository.findByTitleAndAuthor(anyString(), anyString())).thenReturn(Optional.empty());
         when(genreService.findGenre(GENRE_NAMES.get(0))).thenReturn(GENRE_LIST.get(0));
         when(genreService.findGenre(GENRE_NAMES.get(1))).thenReturn(GENRE_LIST.get(1));
-        when(clientService.findClient(anyLong())).thenReturn(CLIENT_LIST.get(0));
-        when(bookRepository.save(any(Book.class))).thenReturn(getBook());
+        when(clientService.findClient(anyLong())).thenReturn(getClient());
+        when(bookRepository.save(any(Book.class))).thenReturn(getBook(Arrays.asList(getClient())));
 
         final BookResponse actualBookResponse = bookService.saveBook(getBookRegistrationRequest());
 
@@ -73,7 +71,7 @@ public class BookServiceTest {
     @Test
     public void shouldNotSaveBookAndThrowBookAlreadyExistsException() {
 
-        when(bookRepository.findByTitleAndAuthor(anyString(), anyString())).thenReturn(Optional.of(getBook()));
+        when(bookRepository.findByTitleAndAuthor(anyString(), anyString())).thenReturn(Optional.of(getBook(Arrays.asList(getClient()))));
 
         final BookAlreadyExistsException actualBookAlreadyExistsException = assertThrows(BookAlreadyExistsException.class, () -> {
             bookService.saveBook(getBookRegistrationRequest());
@@ -87,7 +85,7 @@ public class BookServiceTest {
 
     @Test
     public void shouldFindClientBookList() {
-        when(bookRepository.findByClientListClientId(anyLong())).thenReturn(Arrays.asList(getBook()));
+        when(bookRepository.findByClientListClientId(anyLong())).thenReturn(Arrays.asList(getBook(Arrays.asList(getClient()))));
 
         final List<BookResponse> actualBookResponseList = bookService.findClientBookList(CLIENT_ID);
         final List<BookResponse> expectedBookResponseList = Arrays.asList(getBookResponse());
@@ -98,7 +96,7 @@ public class BookServiceTest {
 
     @Test
     public void findBooksByGenre() {
-        when(bookRepository.findByGenresGenreName(anyString())).thenReturn(Arrays.asList(getBook()));
+        when(bookRepository.findByGenresGenreName(anyString())).thenReturn(Arrays.asList(getBook(Arrays.asList(getClient()))));
 
         final List<BookResponse> actualBookResponseList = bookService.findBooksByGenre(GENRE_NAMES.get(0));
         final List<BookResponse> expectedBookResponseList = Arrays.asList(getBookResponse());
@@ -108,17 +106,27 @@ public class BookServiceTest {
     }
 
     @Test
-    public void linkBookToClient() {
+    public void shouldLinkBookToClient() {
+
+        when(clientService.findClient(anyLong())).thenReturn(getClient());
+        when(bookRepository.findById(anyLong())).thenReturn(Optional.of(getBook(getClientList(getClient()))));
+        when(bookRepository.save(any(Book.class))).thenReturn(getBook(getClientList(getClient())));
+
+        bookService.linkBookToClient(getBookLinkingRequest());
+
+        verify(clientService, times(1)).findClient(anyLong());
+        verify(bookRepository, times(1)).findById(anyLong());
+        verify(bookRepository, times(1)).save(any(Book.class));
     }
 
     @Test
     public void shouldFindBook() {
-        when(bookRepository.findById(anyLong())).thenReturn(Optional.of(getBook()));
+        when(bookRepository.findById(anyLong())).thenReturn(Optional.of(getBook(getClientList(getClient()))));
 
         final Book actualBook = bookService.findBook(BOOK_ID);
-        final Book expectedBook = getBook();
+        final Book expectedBook = getBook(getClientList(getClient()));
 
-        assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
+        assertEquals(expectedBook, actualBook);
         verify(bookRepository, times(1)).findById(anyLong());
     }
 
@@ -148,8 +156,8 @@ public class BookServiceTest {
         return new BookLinkingRequest(CLIENT_ID, BOOK_ID);
     }
 
-    private Book getBook() {
-        final Book book = new Book(TITLE, AUTHOR, IMAGE_LINK, GENRE_LIST, EDITOR, RELEASE_YEAR, CLIENT_LIST);
+    private Book getBook(List<Client> clients) {
+        final Book book = new Book(TITLE, AUTHOR, IMAGE_LINK, GENRE_LIST, EDITOR, RELEASE_YEAR, clients);
         book.setBookId(BOOK_ID);
 
         return book;
@@ -161,5 +169,19 @@ public class BookServiceTest {
 
     private BookAlreadyExistsException getBookAlreadyExistsException(String title, String author) {
         return new BookAlreadyExistsException("O livro " + title + " do(a) autor(a) " + author + " já se existe em nossos registros! Por favor cadastre um livro ainda não cadastrado!");
+    }
+
+    private Client getClient() {
+        final Client client = new Client(CLIENT_NAME, CLIENT_EMAIL, CLIENT_PASSWORD);
+        client.setClientId(CLIENT_ID);
+
+        return client;
+    }
+
+    private List<Client> getClientList(Client client) {
+        final List<Client> clients = new ArrayList<>();
+        clients.add(client);
+
+        return clients;
     }
 }
