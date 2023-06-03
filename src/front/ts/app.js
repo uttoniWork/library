@@ -71,6 +71,7 @@ function showPopup(img) {
 function showRegister(id){
     document.getElementById(id).style.display = 'block';
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 function searchBooks(idDiv){
     var campo = document.getElementById("text-search");
@@ -135,4 +136,88 @@ function createBook(){
             .then(response => response.json())
     });*/
     alert("Livro cadastrado");
+}
+
+//lista livros do cliente, deve ser carregado assim q a pagina carrega pra montar a lista de livros do cliente
+function findBooksOfClient(){
+    
+    //var form = document.getElementById("login");
+    
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const clientId = 1;
+
+        let url = 'http://localhost:15000/book/clientId=' + clientId;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response =>  response.json())
+        .then((json) => {
+            //Do something
+        })
+    });
+}
+
+//pesquisa livros por genero
+function findBooksOfGenre(){
+    
+    //var form = document.getElementById("login");
+    
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const genreName = "Fantasia";
+
+        let url = 'http://localhost:15000/book/genre/genreName=' + genreName;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response =>  response.json())
+        .then((json) => {
+            //Do something
+        })
+    });
+}
+
+
+//Chamado pelo botão de + quando for adicionar um livro q já existe à lista do cliente
+function addBookToClient(){
+
+
+    let url = 'http://localhost:15000/book/choose';
+
+    //var form = document.getElementById("create");
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const clientId = loggedClient.clientId
+        const bookId = document.getElementById("bookId").value
+
+
+        var clientBookRequest = {
+          "clientId": clientId,
+          "bookId": bookId
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                // 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(clientBookRequest)
+        })
+            .then(response => response.json())
+    });
 }
