@@ -1,26 +1,17 @@
 package project.library.controller;
 
-import org.apache.coyote.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import project.library.dto.request.ClientLoginRequest;
 import project.library.dto.request.ClientRequest;
 import project.library.dto.response.ClientLoginResponse;
-import project.library.exception.ClientAlreadyExistsException;
-import project.library.exception.ClientNotExistException;
 import project.library.model.Client;
-import project.library.repository.ClientRepository;
 import project.library.service.ClientService;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 class ClientControllerTest {
 
@@ -28,9 +19,6 @@ class ClientControllerTest {
     private static final String USERNAME = "Harry";
     private static final String PASSWORD = "12345";
     private static final String EMAIL = "harry@gmail.com";
-
-
-
 
     private final ClientService clientService = mock(ClientService.class);
     private final ClientController clientController = new ClientController(clientService);
@@ -59,11 +47,11 @@ class ClientControllerTest {
         verify(clientService, times(1)).loginClient(any(ClientLoginRequest.class));
     }
 
-    private ClientRequest getClientRequest(){
+    private ClientRequest getClientRequest() {
         return new ClientRequest(USERNAME, EMAIL, PASSWORD);
     }
 
-    private Client getClient(){
+    private Client getClient() {
         final Client client = new Client(USERNAME, EMAIL, PASSWORD);
         client.setClientId(CLIENT_ID);
 
@@ -80,9 +68,5 @@ class ClientControllerTest {
 
     private ClientLoginResponse getClientLoginResponse() {
         return new ClientLoginResponse(CLIENT_ID, USERNAME);
-    }
-
-    private ClientNotExistException getClientNotExistException() {
-        return new ClientNotExistException("Cliente não existe, corrija email e/ou senha!");
     }
 }
