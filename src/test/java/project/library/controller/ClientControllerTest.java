@@ -1,0 +1,88 @@
+package project.library.controller;
+
+import org.apache.coyote.Response;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.ResponseEntity;
+import project.library.dto.request.ClientLoginRequest;
+import project.library.dto.request.ClientRequest;
+import project.library.dto.response.ClientLoginResponse;
+import project.library.exception.ClientAlreadyExistsException;
+import project.library.exception.ClientNotExistException;
+import project.library.model.Client;
+import project.library.repository.ClientRepository;
+import project.library.service.ClientService;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+
+class ClientControllerTest {
+
+    private static final Long CLIENT_ID = 1L;
+    private static final String USERNAME = "Harry";
+    private static final String PASSWORD = "12345";
+    private static final String EMAIL = "harry@gmail.com";
+
+
+
+
+    private final ClientService clientService = mock(ClientService.class);
+    private final ClientController clientController = new ClientController(clientService);
+
+    @Test
+    void shouldPostClient() {
+        when(clientService.saveClient(any(ClientRequest.class))).thenReturn(getClient());
+
+        final ResponseEntity<Client> actualClientResponse = clientController.postClient(getClientRequest());
+        final ResponseEntity<Client> expectedClientResponse = getResponseEntityClient(getClient());
+
+        assertThat(actualClientResponse.getBody()).usingRecursiveComparison().ignoringFields("dateCreated").isEqualTo(expectedClientResponse.getBody());
+        assertEquals(expectedClientResponse.getStatusCode(), actualClientResponse.getStatusCode());
+        verify(clientService, times(1)).saveClient(any(ClientRequest.class));
+    }
+
+    @Test
+    void shouldLoginClient() {
+        when(clientService.loginClient(any(ClientLoginRequest.class))).thenReturn(getClientLoginResponse());
+
+        final ResponseEntity<ClientLoginResponse> actualClientResponse = clientController.loginClient(EMAIL, PASSWORD);
+        final ResponseEntity<ClientLoginResponse> expectedClientResponse = getResponseEntityClientLogin(getClientLoginResponse());
+
+        assertThat(actualClientResponse.getBody()).usingRecursiveComparison().ignoringFields("dateCreated").isEqualTo(expectedClientResponse.getBody());
+        assertEquals(expectedClientResponse.getStatusCode(), actualClientResponse.getStatusCode());
+        verify(clientService, times(1)).loginClient(any(ClientLoginRequest.class));
+    }
+
+    private ClientRequest getClientRequest(){
+        return new ClientRequest(USERNAME, EMAIL, PASSWORD);
+    }
+
+    private Client getClient(){
+        final Client client = new Client(USERNAME, EMAIL, PASSWORD);
+        client.setClientId(CLIENT_ID);
+
+        return client;
+    }
+
+    private ResponseEntity<Client> getResponseEntityClient(Client client) {
+        return ResponseEntity.ok(client);
+    }
+
+    private ResponseEntity<ClientLoginResponse> getResponseEntityClientLogin(ClientLoginResponse clientLoginResponse) {
+        return ResponseEntity.ok(clientLoginResponse);
+    }
+
+    private ClientLoginResponse getClientLoginResponse() {
+        return new ClientLoginResponse(CLIENT_ID, USERNAME);
+    }
+
+    private ClientNotExistException getClientNotExistException() {
+        return new ClientNotExistException("Cliente não existe, corrija email e/ou senha!");
+    }
+}
