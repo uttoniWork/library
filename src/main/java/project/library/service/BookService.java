@@ -48,6 +48,8 @@ public class BookService {
 
         final Book savedBook = bookRepository.save(bookFactory.getBook(bookRegistrationRequest, genres, client));
 
+        System.out.println("saved Book: " + savedBook.toString());
+
         return bookResponseFactory.getBookResponse(savedBook);
     }
 

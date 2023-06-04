@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import project.library.dto.request.BookLinkingRequest;
 import project.library.dto.request.BookRegistrationRequest;
 import project.library.dto.response.BookResponse;
-import project.library.model.Book;
 import project.library.service.BookService;
 
 import java.util.List;

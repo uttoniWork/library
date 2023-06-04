@@ -15,10 +15,8 @@ function setItem(client){
     localStorage.setItem(client);
 }
 
-
 function create() {
-
-  /*  let url = 'http://localhost:15000/client';
+    let url = 'http://localhost:15000/client';
 
     var form = document.getElementById("create");
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
@@ -46,14 +44,12 @@ function create() {
                 response.json();
                 window.alert("usuario cadastrado");
             })
-
-    });*/
+    });
 
     verificaCamposCreate();
 }
 
 function login() {
-    
 
     var form = document.getElementById("login");
     form === null || form === void 0 ? void 0 : form.addEventListener("submit",function (event) {

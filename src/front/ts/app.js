@@ -1,10 +1,8 @@
 
 function getItem(){
     return localStorage.getItem(client)
-
     window.onload
 }
-
 
 function HideShow(id, inverse_id){
     document.getElementById(id).style.display = 'block';
@@ -84,46 +82,52 @@ function searchBooks(idDiv){
 }
 
 function validaCampo(){
-    var title = document.getElementById("book_name")
-    var author = document.getElementById("autor")
-    var coverImage = document.getElementById("image")
-    var gender = document.getElementById("genero")
-    var editor = document.getElementById("editora")
-    var releaseYear = document.getElementById("mes")
 
-    if (title.value !== '' && author.value !== '' && coverImage.value !== '' && gender.value !== '' && editor.value !== '' && releaseYear.value !== ''){
-        createBook();
-        document.getElementById('content').style.display = 'none';
+    var title = document.getElementById("book_name").value
+    var author = document.getElementById("autor").value
+    var coverImage = document.getElementById("image").value
+    var genre = document.getElementById("genero").value
+    var editor = document.getElementById("editora").value
+    var releaseYear = document.getElementById("ano").value
+
+    console.log("validando campos");
+
+    if (title !== '' && author !== '' && coverImage !== '' && genre !== '' && editor !== '' && releaseYear !== ''){
+        return;
     }
 }
 
 function createBook(){
 
+    validaCampo()
 
-    /*let url = 'http://localhost:15000/book';
+    console.log("campos validados");
 
-    var form = document.getElementById("create");
+    let url = 'http://localhost:15000/book';
+
+    var form = document.getElementById("createForm");
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const clientId = loggedClient.clientId
+        const clientId = 0
         const title = document.getElementById("book_name").value
         const author = document.getElementById("autor").value
         const coverImage = document.getElementById("image").value
-        const gender = document.getElementById("genero").value
+        const genre = document.getElementById("genero").value
         const editor = document.getElementById("editora").value
-        const releaseYear = document.getElementById("mes").value
-
+        const releaseYear = document.getElementById("ano").value
 
         var clientRequest = {
-          "clientId": clientId,
-          "title": title,
-          "author": author,
-          "coverImage": coverImage,
-          "gender": gender,
-          "editor": editor,
-          "releaseYear": releaseYear
+            "clientId": clientId,
+            "title": title,
+            "author": author,
+            "coverImage": coverImage,
+            "genres": [genre],
+            "editor": editor,
+            "releaseYear": releaseYear
         };
+
+        console.log("creating")
 
         fetch(url, {
             method: 'POST',
@@ -133,20 +137,25 @@ function createBook(){
             },
             body: JSON.stringify(clientRequest)
         })
-            .then(response => response.json())
-    });*/
+            .then(response => {
+                console.log("created")
+                response.json();
+            })
+    });
+
     alert("Livro cadastrado");
+
 }
 
 //lista livros do cliente, deve ser carregado assim q a pagina carrega pra montar a lista de livros do cliente
 function findBooksOfClient(){
     
-    //var form = document.getElementById("login");
+    var form = document.getElementById("login");
     
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const clientId = 1;
+        const clientId = 0;
 
         let url = 'http://localhost:15000/book/clientId=' + clientId;
 
@@ -167,7 +176,7 @@ function findBooksOfClient(){
 //pesquisa livros por genero
 function findBooksOfGenre(){
     
-    //var form = document.getElementById("login");
+    var form = document.getElementById("login");
     
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -190,18 +199,17 @@ function findBooksOfGenre(){
     });
 }
 
-
 //Chamado pelo botão de + quando for adicionar um livro q já existe à lista do cliente
+//padraoADD
 function addBookToClient(){
-
 
     let url = 'http://localhost:15000/book/choose';
 
-    //var form = document.getElementById("create");
+    var form = document.getElementById("create");
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const clientId = loggedClient.clientId
+        const clientId = 0
         const bookId = document.getElementById("bookId").value
 
 

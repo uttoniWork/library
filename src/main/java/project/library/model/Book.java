@@ -142,4 +142,19 @@ public class Book {
         result = 31 * result + (clientList != null ? clientList.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", coverImage='" + coverImage + '\'' +
+                ", genres=" + genres +
+                ", editor='" + editor + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", dateCreated=" + dateCreated +
+                ", clientList=" + clientList +
+                '}';
+    }
 }
