@@ -48,6 +48,8 @@ public class BookService {
 
         final Book savedBook = bookRepository.save(bookFactory.getBook(bookRegistrationRequest, genres, client));
 
+        System.out.println("saved Book: " + savedBook.toString());
+
         return bookResponseFactory.getBookResponse(savedBook);
     }
 
@@ -81,5 +83,9 @@ public class BookService {
     public Book findBook(Long bookId) {
         return bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotExistException("Livro não cadastrado!"));
+    }
+
+    public List<BookResponse> findBooksByName(String bookTitle) {
+        return bookResponseFactory.getBookResponseList(bookRepository.findByTitle(bookTitle));
     }
 }

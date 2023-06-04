@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import project.library.dto.request.BookLinkingRequest;
 import project.library.dto.request.BookRegistrationRequest;
 import project.library.dto.response.BookResponse;
-import project.library.model.Book;
 import project.library.service.BookService;
 
 import java.util.List;
@@ -40,6 +39,12 @@ public class BookController {
     public ResponseEntity<List<BookResponse>> getBooksByGenre(@RequestParam String genreName) {
 
         return ResponseEntity.ok(bookService.findBooksByGenre(genreName));
+    }
+
+    @GetMapping("/title")
+    public ResponseEntity<List<BookResponse>> getBooksByName(@RequestParam String bookTitle) {
+
+        return ResponseEntity.ok(bookService.findBooksByName(bookTitle));
     }
 
     @PostMapping("/choose")

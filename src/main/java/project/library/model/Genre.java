@@ -2,12 +2,16 @@ package project.library.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
 
+@Node("genre")
 public class Genre {
 
     @Id
     @GeneratedValue
     private Long genreId;
+    @Property
     private String genreName;
 
     public Genre() {
@@ -50,5 +54,13 @@ public class Genre {
         int result = genreId != null ? genreId.hashCode() : 0;
         result = 31 * result + (genreName != null ? genreName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "genreId=" + genreId +
+                ", genreName='" + genreName + '\'' +
+                '}';
     }
 }

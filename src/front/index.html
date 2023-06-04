@@ -27,11 +27,10 @@
         <nav id="navbar" class="nav-menu navbar">
           <ul>
             <li><a id="list" href="#" class="nav-link scrollto" onclick="HideShow('container-list','container-search')">
-            <span>Minha lista</span></a></li>
+            <span onclick="findBooksOfClient()">Minha lista</span></a></li>
   
             <li><a href="#" id="search" class="nav-link scrollto" onclick="HideShow('container-search','container-list')">
             <span id="search-button">Pesquisar</span></a></li>
-  
           </ul>
         </nav>
       </header>
@@ -62,7 +61,7 @@
     
     
               <li>
-                <div  id="berserkerDiv" class="berserkerClass" >
+                <div id="berserkerDiv" class="berserkerClass" >
                   <img
                     src="https://preview.redd.it/blind-girls-peaceful-day-at-the-park-art-by-popopoka-v0-0fmu7r7wqb6a1.jpg?auto=webp&s=6f7d26bd57188f25bc4de82f2587856eded8a344"
                     class="guts" alt="banco"
@@ -89,8 +88,8 @@
         <div id="container-search"class="container">
     
           <div class="search-bar" style="margin-bottom: 50px;">
-            <input id="text-search"type="text" required="True" placeholder="Digite sua pesquisa">
-              <button id="Search" type="submit" onclick="searchBooks('Found')">Pesquisar</button>
+            <input id="text-search" type="text" required="True" placeholder="Digite sua pesquisa">
+              <button id="search_title" type="submit" onclick="findBooksOfTitle()">Pesquisar</button>
           </div>
     
           <div id="Found"class="found">
@@ -111,7 +110,7 @@
                 height="300"
                 src="">
                 <div id="popup-title-list"></div>
-                <a href="#">ADD</a>
+                <a href="#" onclick="addBookToClient">ADD</a>
             </div>
           </div>
     
@@ -125,7 +124,7 @@
             </div>
     
             <div id="content" class="register-content" style="display: none;">
-              <form  class="">
+              <form class="" id="createForm">
                 <div class="input-book">
                   <div id="createBook" class="form-group">
     
@@ -160,13 +159,13 @@
                     </div>
     
                     <div class="book-detail">
-                      <label for="mes" class="respostaUm">Ano de lançamento:
-                        <input type="text" id="mes" class="respostaDois" >
+                      <label for="ano" class="respostaUm">Ano de lançamento:
+                        <input type="text" id="ano" class="respostaDois" >
                       </label>
                     </div>
     
                     <div class="button">
-                      <button id="bookCreate"type="submit" class="btnCadastrar" onclick="validaCampo()">Cadastrar</button>
+                      <button id="bookCreate"type="submit" class="btnCadastrar" onclick="createBook()">Cadastrar</button>
                     </div>
                   </div>
                 </div>
