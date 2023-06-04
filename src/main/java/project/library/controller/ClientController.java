@@ -23,7 +23,6 @@ public class ClientController {
     public ResponseEntity<Client> postClient(@RequestBody ClientRequest clientRequest) {
 
         Client savedClient = clientService.saveClient(clientRequest);
-        System.out.println("cadastro: nome=" + clientRequest.getUserName());
 
         return ResponseEntity.ok(savedClient);
     }
@@ -32,10 +31,8 @@ public class ClientController {
     public ResponseEntity<ClientLoginResponse> loginClient(@RequestParam String email,
                                                            @RequestParam String password) {
 
-        System.out.println("requisição de login recebido com: email=" + email + ", senha: " + password);
         ClientLoginResponse clientLoginResponse = clientService.loginClient(new ClientLoginRequest(email, password));
 
-        System.out.println("requisição de login recebido com: id=" + clientLoginResponse.getClientId() + ", username: " + clientLoginResponse.getUserName());
         return ResponseEntity.ok(clientLoginResponse);
     }
 }

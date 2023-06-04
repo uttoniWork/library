@@ -10,6 +10,14 @@ public class Genre {
     private Long genreId;
     private String genreName;
 
+    public Genre() {
+    }
+
+    public Genre(Long genreId, String genreName) {
+        this.genreId = genreId;
+        this.genreName = genreName;
+    }
+
     public Long getGenreId() {
         return genreId;
     }
@@ -24,5 +32,23 @@ public class Genre {
 
     public void setGenreName(String genreName) {
         this.genreName = genreName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Genre genre = (Genre) o;
+
+        if (genreId != null ? !genreId.equals(genre.genreId) : genre.genreId != null) return false;
+        return genreName != null ? genreName.equals(genre.genreName) : genre.genreName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = genreId != null ? genreId.hashCode() : 0;
+        result = 31 * result + (genreName != null ? genreName.hashCode() : 0);
+        return result;
     }
 }

@@ -32,16 +32,16 @@ public class ClientService {
         return new ClientLoginResponse(clientFound.getClientId(), clientFound.getUserName());
     }
 
+    public Client findClient(Long clientId){
+        return clientRepository.findById(clientId).get();
+    }
+
     private Client checkClientExists(String email, String password){
         return clientRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new ClientNotExistException("Cliente não existe, corrija email e/ou senha!"));
     }
 
-    public Client findClient(Long clientId){
-        return clientRepository.findById(clientId).get();
-    }
-
-    public void checkClientAlreadyExists(String email, String password, String userName){
+    private void checkClientAlreadyExists(String email, String password, String userName){
         if(clientRepository.findByEmailAndPasswordAndUserName(email, password, userName).isPresent())
             throw new ClientAlreadyExistsException("Cliente já cadastrado!");
     }
