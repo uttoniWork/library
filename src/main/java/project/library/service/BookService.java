@@ -84,4 +84,8 @@ public class BookService {
         return bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotExistException("Livro não cadastrado!"));
     }
+
+    public List<BookResponse> findBooksByName(String bookTitle) {
+        return bookResponseFactory.getBookResponseList(bookRepository.findByTitle(bookTitle));
+    }
 }

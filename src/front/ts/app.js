@@ -79,6 +79,8 @@ function searchBooks(idDiv){
     else{
         window.alert("Preencha o campo de pesquisa")
     }
+
+    findBooksOfTitle()
 }
 
 function validaCampo(){
@@ -173,30 +175,29 @@ function findBooksOfClient(){
     });
 }
 
+
+var listOfBooks = [];
+
 //pesquisa livros por genero
-function findBooksOfGenre(){
-    
-    var form = document.getElementById("login");
-    
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit", function (event) {
-        event.preventDefault();
+function findBooksOfTitle(){
 
-        const genreName = "Fantasia";
+    var bookTitle = document.getElementById("text-search").value;
 
-        let url = 'http://localhost:15000/book/genre/genreName=' + genreName;
+    let url = 'http://localhost:15000/book/title/bookTitle=' + bookTitle;
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                // 'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(response =>  response.json())
-        .then((json) => {
-            //Do something
-        })
-    });
+    console.log("searching ", bookTitle)
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            // 'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response =>  {
+        listOfBooks = response.json()
+        console.log("Found ", listOfBooks);
+    })
 }
 
 //Chamado pelo botão de + quando for adicionar um livro q já existe à lista do cliente

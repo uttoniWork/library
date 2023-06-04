@@ -41,6 +41,12 @@ public class BookController {
         return ResponseEntity.ok(bookService.findBooksByGenre(genreName));
     }
 
+    @GetMapping("/title")
+    public ResponseEntity<List<BookResponse>> getBooksByName(@RequestParam String bookTitle) {
+
+        return ResponseEntity.ok(bookService.findBooksByName(bookTitle));
+    }
+
     @PostMapping("/choose")
     public ResponseEntity<String> linkBookToClient(@RequestBody BookLinkingRequest bookLinkingRequest) {
 
