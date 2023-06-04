@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link href="images/livro.png" rel="icon">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-login.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
@@ -15,8 +15,7 @@
     <div class="container">
         <div class="content first-content">
             <div class="first-column">
-                <h2 class="title title-primary">welcome back!</h2>
-                <p class="description description-primary">Onde os livros se encontram</p>
+                <h2 class="title title-primary">welcome!</h2>
                 <button id="signin" class="btn btn-primary">sign in</button>
             </div>
             <div class="second-column">
@@ -24,21 +23,21 @@
                 <form id="create"  class="form">
                     <label class="label-input" for="userName">
                         <i class="far fa-user icon-modify"></i>
-                        <input type="text" placeholder="Name" id="userName">
+                        <input type="text" placeholder="Name" required="True" id="userName">
                     </label>
 
                     <label class="label-input" for="email">
                         <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email" id="email">
+                        <input type="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"  required="True" id="email">
                     </label>
 
                     <label class="label-input" for="password">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Password" id="password">
+                        <input type="password" placeholder="Password"  required="True" id="password">
                     </label>
 
 
-                    <button class="btn btn-second" onclick="create()"></a>create</button></a>
+                    <button id="buttonCreate" class="btn btn-second" onclick="create()"></a>create</button></a>
                 </form>
             </div><!-- second column -->
 
@@ -53,23 +52,22 @@
             <div class="second-column">
                 <h2 class="title title-second">sign in to developer</h2>
 
-                <p class="description descriptison-second">or use your email account:</p>
                 <form id="login" class="form">
 
                     <label class="label-input" for="emailLogin">
                         <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email" id="emailLogin">
+                        <input type="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required="True" id="emailLogin">
                     </label>
 
                     <label class="label-input" for="passwordLogin">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Password" id="passwordLogin">
+                        <input type="password" placeholder="Password" required="True" id="passwordLogin">
                     </label>
-                    <button type="submit" class="btn btn-second" onclick="login()">login</button>
+                    <button id="buttonLogin" class="btn btn-second" onclick="login()">login</button>
                 </form>
             </div><!-- second column -->
         </div><!-- second-content -->
     </div>
-    <script src="ts/app.js"></script>
+    <script src="ts/login.js"></script>
 </body>
 </html>
