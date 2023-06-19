@@ -111,10 +111,18 @@ public class BookService {
 
         Collections.shuffle(booksByGenres);
 
-        if(booksByGenres.size() >= 20) {
-            return bookResponseFactory.getBookResponseList(booksByGenres.subList(0, 19));
+        List<Book> finalList = null;
+        if (booksByGenres.size() >= 20) {
+            finalList = booksByGenres.subList(0, 19);
+        } else {
+            finalList = booksByGenres;
         }
 
-        return bookResponseFactory.getBookResponseList(booksByGenres);
+        finalList.forEach(book -> {
+            book.setGenres(genreService.findGenresByBookId(book.getBookId()));
+            System.out.println("Generos: " + book.getGenres());
+        });
+
+        return bookResponseFactory.getBookResponseList(finalList);
     }
 }
