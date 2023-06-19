@@ -54,4 +54,10 @@ public class BookController {
 
         return ResponseEntity.ok("Livro adicionado com sucesso!");
     }
+
+    @GetMapping("/recomend")
+    public ResponseEntity<List<BookResponse>> recomendBooks(@RequestParam Long clientId){
+        System.out.println("chamado");
+        return ResponseEntity.ok(bookService.recomendBooks(clientId));
+    }
 }
