@@ -1,8 +1,11 @@
 package project.library.service;
 
 import org.springframework.stereotype.Service;
+import project.library.model.Book;
 import project.library.model.Genre;
 import project.library.repository.GenreRepository;
+
+import java.util.List;
 
 @Service
 public class GenreService {

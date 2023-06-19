@@ -2,6 +2,7 @@ package project.library.factory;
 
 import org.springframework.stereotype.Component;
 import project.library.dto.request.BookRegistrationRequest;
+import project.library.dto.response.BookResponse;
 import project.library.model.Book;
 import project.library.model.Client;
 import project.library.model.Genre;
@@ -26,5 +27,24 @@ public class BookFactory {
                 bookRegistrationRequest.getReleaseYear(),
                 clients
         );
+    }
+
+    public Book getBook(BookResponse bookResponse){
+        return new Book(
+                bookResponse.getTitle(),
+                bookResponse.getAuthor(),
+                bookResponse.getCoverImage(),
+                bookResponse.getGenres(),
+                bookResponse.getEditor(),
+                bookResponse.getReleaseYear(),
+                null
+        );
+    }
+
+    public List<Book> getBookList(List<BookResponse> bookResponseList){
+        final List<Book> bookList = new ArrayList<>();
+        bookResponseList.forEach(bookResponse -> bookList.add(getBook(bookResponse)));
+
+        return bookList;
     }
 }

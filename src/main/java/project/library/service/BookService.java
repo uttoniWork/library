@@ -13,9 +13,7 @@ import project.library.model.Client;
 import project.library.model.Genre;
 import project.library.repository.BookRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookService {
@@ -87,5 +85,36 @@ public class BookService {
 
     public List<BookResponse> findBooksByName(String bookTitle) {
         return bookResponseFactory.getBookResponseList(bookRepository.findByTitle(bookTitle));
+    }
+
+    public List<BookResponse> recomendBooks(Long clientId) {
+        final List<BookResponse> clientBookResponseList = findClientBookList(clientId);
+        final Set<Genre> genreSet = new HashSet<>();
+        clientBookResponseList.forEach(book -> {
+            genreSet.addAll(book.getGenres());
+        });
+
+        final Set<Book> recomendedSetOfBooks = new HashSet<>();
+
+        final List<String> genreNames = new ArrayList<>();
+        genreSet.forEach(genre -> {
+            genreNames.add(genre.getGenreName());
+            System.out.println("Genre name: " + genre.getGenreName());
+        });
+
+        final List<Book> booksByGenres = bookRepository.findBooksByGenres(genreNames);
+        System.out.println("Tamanho lista: " + booksByGenres.size());
+
+        final List<Book> clientBookList = bookFactory.getBookList(clientBookResponseList);
+        booksByGenres.removeAll(clientBookList);
+        System.out.println("Tamanho lista: " + booksByGenres.size());
+
+        Collections.shuffle(booksByGenres);
+
+        if(booksByGenres.size() >= 20) {
+            return bookResponseFactory.getBookResponseList(booksByGenres.subList(0, 19));
+        }
+
+        return bookResponseFactory.getBookResponseList(booksByGenres);
     }
 }
