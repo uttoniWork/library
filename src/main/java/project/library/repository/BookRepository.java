@@ -13,7 +13,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Optional<Book> findByTitleAndAuthor(String title, String author);
     List<Book> findByClientListClientId(Long clientId);
     List<Book> findByGenresGenreName(String genreName);
-    List<Book> findByTitle(String bookTitle);
     @Query("MATCH (b:book)-[:EH_DO_GENERO]->(g:genre) WHERE g.genreName IN $genreNames RETURN b, COLLECT(g) as genres")
     List<Book> findBooksByGenres(List<String> genreNames);
+    List<Book> findTop20ByTitleIgnoreCaseContaining(String partialTitle);
 }

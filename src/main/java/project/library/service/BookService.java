@@ -83,8 +83,24 @@ public class BookService {
                 .orElseThrow(() -> new BookNotExistException("Livro não cadastrado!"));
     }
 
-    public List<BookResponse> findBooksByName(String bookTitle) {
-        return bookResponseFactory.getBookResponseList(bookRepository.findByTitle(bookTitle));
+    public List<BookResponse> findBooksByName(String text) {
+        List<Genre> genres = genreService.findAllGenres();
+        List<Book> books = new ArrayList<>();
+        genres.forEach(genre -> {
+            if(genre.getGenreName().toLowerCase().contains(text.toLowerCase())){
+                books.addAll(bookRepository.findByGenresGenreName(genre.getGenreName()));
+            }
+        });
+
+        if(books.size()<20){
+            books.addAll(bookRepository.findTop20ByTitleIgnoreCaseContaining(text));
+        }
+
+        if(books.size()>20){
+            return  bookResponseFactory.getBookResponseList(books.subList(0, 20));
+        }
+
+        return bookResponseFactory.getBookResponseList(books);
     }
 
     public List<BookResponse> recomendBooks(Long clientId) {
