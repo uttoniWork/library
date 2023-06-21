@@ -15,7 +15,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     List<Book> findByGenresGenreName(String genreName);
 
-    List<Book> findTop20ByTitleIgnoreCaseContaining(String partialTitle);
+    List<Book> findTop21ByTitleIgnoreCaseContaining(String partialTitle);
 
     List<Book> findByGenresGenreNameIn(List<String> genreNames);
 }

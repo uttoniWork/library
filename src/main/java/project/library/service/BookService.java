@@ -90,12 +90,12 @@ public class BookService {
             }
         });
 
-        if (books.size() < 20) {
-            books.addAll(bookRepository.findTop20ByTitleIgnoreCaseContaining(text));
+        if (books.size() < 21) {
+            books.addAll(bookRepository.findTop21ByTitleIgnoreCaseContaining(text));
         }
 
-        if (books.size() > 20) {
-            return bookResponseFactory.getBookResponseList(books.subList(0, 20));
+        if (books.size() > 21) {
+            return bookResponseFactory.getBookResponseList(books.subList(0, 21));
         }
 
         return bookResponseFactory.getBookResponseList(books);
@@ -121,8 +121,8 @@ public class BookService {
         Collections.shuffle(booksByGenres);
 
         List<Book> finalList;
-        if (booksByGenres.size() >= 20) {
-            finalList = booksByGenres.subList(0, 19);
+        if (booksByGenres.size() > 21) {
+            finalList = booksByGenres.subList(0, 21);
         } else {
             finalList = booksByGenres;
         }
