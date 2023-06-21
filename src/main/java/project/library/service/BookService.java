@@ -46,8 +46,6 @@ public class BookService {
 
         final Book savedBook = bookRepository.save(bookFactory.getBook(bookRegistrationRequest, genres, client));
 
-        System.out.println("saved Book: " + savedBook.toString());
-
         return bookResponseFactory.getBookResponse(savedBook);
     }
 
@@ -87,17 +85,17 @@ public class BookService {
         List<Genre> genres = genreService.findAllGenres();
         List<Book> books = new ArrayList<>();
         genres.forEach(genre -> {
-            if(genre.getGenreName().toLowerCase().contains(text.toLowerCase())){
+            if (genre.getGenreName().toLowerCase().contains(text.toLowerCase())) {
                 books.addAll(bookRepository.findByGenresGenreName(genre.getGenreName()));
             }
         });
 
-        if(books.size()<20){
+        if (books.size() < 20) {
             books.addAll(bookRepository.findTop20ByTitleIgnoreCaseContaining(text));
         }
 
-        if(books.size()>20){
-            return  bookResponseFactory.getBookResponseList(books.subList(0, 20));
+        if (books.size() > 20) {
+            return bookResponseFactory.getBookResponseList(books.subList(0, 20));
         }
 
         return bookResponseFactory.getBookResponseList(books);
@@ -110,34 +108,24 @@ public class BookService {
             genreSet.addAll(book.getGenres());
         });
 
-        final Set<Book> recomendedSetOfBooks = new HashSet<>();
-
         final List<String> genreNames = new ArrayList<>();
         genreSet.forEach(genre -> {
             genreNames.add(genre.getGenreName());
-            System.out.println("Genre name: " + genre.getGenreName());
         });
 
-        final List<Book> booksByGenres = bookRepository.findBooksByGenres(genreNames);
-        System.out.println("Tamanho lista: " + booksByGenres.size());
+        final List<Book> booksByGenres = bookRepository.findByGenresGenreNameIn(genreNames);
 
         final List<Book> clientBookList = bookFactory.getBookList(clientBookResponseList);
         booksByGenres.removeAll(clientBookList);
-        System.out.println("Tamanho lista: " + booksByGenres.size());
 
         Collections.shuffle(booksByGenres);
 
-        List<Book> finalList = null;
+        List<Book> finalList;
         if (booksByGenres.size() >= 20) {
             finalList = booksByGenres.subList(0, 19);
         } else {
             finalList = booksByGenres;
         }
-
-        finalList.forEach(book -> {
-            book.setGenres(genreService.findGenresByBookId(book.getBookId()));
-            System.out.println("Generos: " + book.getGenres());
-        });
 
         return bookResponseFactory.getBookResponseList(finalList);
     }

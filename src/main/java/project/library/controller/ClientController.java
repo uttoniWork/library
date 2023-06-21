@@ -33,8 +33,6 @@ public class ClientController {
 
         ClientLoginResponse clientLoginResponse = clientService.loginClient(new ClientLoginRequest(email, password));
 
-        System.out.println("Client id: " + clientLoginResponse.getClientId());
-        System.out.println("Client user: " + clientLoginResponse.getUserName());
         return ResponseEntity.ok(clientLoginResponse);
     }
 }

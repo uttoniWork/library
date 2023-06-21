@@ -20,10 +20,6 @@ public class GenreService {
         return genreRepository.findByGenreName(genreName).get();
     }
 
-    public List<Genre> findGenresByBookId(Long bookId) {
-        return genreRepository.findGenresByBookId(bookId);
-    }
-
     public List<Genre> findAllGenres() {
         return (List<Genre>) genreRepository.findAll();
     }

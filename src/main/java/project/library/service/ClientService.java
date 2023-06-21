@@ -33,39 +33,33 @@ public class ClientService {
 
     public ClientLoginResponse loginClient(ClientLoginRequest clientLoginRequest) {
 
-
-        System.out.println("Client email: " + clientLoginRequest.getEmail());
-        System.out.println("Client pwd: " + clientLoginRequest.getPassword());
-
         final Client clientFound = checkClientExists(clientLoginRequest.getEmail(), clientLoginRequest.getPassword());
-
-        System.out.println("Cliente encontrado!");
 
         return new ClientLoginResponse(clientFound.getClientId(), clientFound.getUserName());
     }
 
-    public Client findClient(Long clientId){
+    public Client findClient(Long clientId) {
         return clientRepository.findById(clientId).get();
     }
 
-    private Client checkClientExists(String email, String password){
+    private Client checkClientExists(String email, String password) {
         final Optional<Client> client = clientRepository.findByEmail(email);
 
-        if(client.isEmpty()){
+        if (client.isEmpty()) {
             new ClientNotExistException("Cliente não existe, corrija email e/ou senha!");
         }
 
         final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-        if(encoder.matches(password, client.get().getPassword())){
+        if (encoder.matches(password, client.get().getPassword())) {
             return client.get();
         }
 
         throw new ClientNotExistException("Cliente não existe, corrija email e/ou senha!");
     }
 
-    private void checkClientAlreadyExists(String email, String password, String userName){
-        if(clientRepository.findByEmailAndPasswordAndUserName(email, password, userName).isPresent())
+    private void checkClientAlreadyExists(String email, String password, String userName) {
+        if (clientRepository.findByEmailAndPasswordAndUserName(email, password, userName).isPresent())
             throw new ClientAlreadyExistsException("Cliente já cadastrado!");
     }
 }
