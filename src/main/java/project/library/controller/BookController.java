@@ -42,9 +42,9 @@ public class BookController {
     }
 
     @GetMapping("/title")
-    public ResponseEntity<List<BookResponse>> getBooksByName(@RequestParam String bookTitle) {
+    public ResponseEntity<List<BookResponse>> getBooksByName(@RequestParam String bookTitle, @RequestParam Long clientId) {
 
-        return ResponseEntity.ok(bookService.findBooksByName(bookTitle));
+        return ResponseEntity.ok(bookService.findBooksByName(bookTitle, clientId));
     }
 
     @PostMapping("/choose")

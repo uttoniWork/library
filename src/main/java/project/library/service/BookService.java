@@ -81,7 +81,10 @@ public class BookService {
                 .orElseThrow(() -> new BookNotExistException("Livro não cadastrado!"));
     }
 
-    public List<BookResponse> findBooksByName(String text) {
+    public List<BookResponse> findBooksByName(String text, Long clientId) {
+
+        final List<Book> clientBooks = bookFactory.getBookList(findClientBookList(clientId));
+
         List<Genre> genres = genreService.findAllGenres();
         List<Book> books = new ArrayList<>();
         genres.forEach(genre -> {
@@ -97,6 +100,8 @@ public class BookService {
         if (books.size() > 21) {
             return bookResponseFactory.getBookResponseList(books.subList(0, 21));
         }
+
+        books.removeAll(clientBooks);
 
         return bookResponseFactory.getBookResponseList(books);
     }

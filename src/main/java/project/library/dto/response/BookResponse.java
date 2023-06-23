@@ -1,13 +1,8 @@
 package project.library.dto.response;
 
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
-import project.library.model.Client;
 import project.library.model.Genre;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookResponse {
